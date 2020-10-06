@@ -3,4 +3,4 @@ target/
 *.iml
 src/test/java/examples/
 .DS_Store
-*.karate-properties.json
+karate-properties.json
