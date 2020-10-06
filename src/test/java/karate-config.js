@@ -7,11 +7,7 @@ function fn() {
   var config = {
     env: env,
     someUrl: 'https://angular-conduit-node.herokuapp.com/api',
-    register:{
-    		username: 'QAtomuyuaiut',
-            email: 'qaua65iony@gmail.com',
-            password: 'elvism67898'
-    	}
+
   }
   if (env == 'dev') {
 
