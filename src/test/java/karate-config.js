@@ -8,10 +8,6 @@ function fn() {
     env: env,
     someUrl: 'https://angular-conduit-node.herokuapp.com/api',
 
-  }
-  if (env == 'dev') {
-
-  } else if (env == 'e2e') {
 
   }
   return config;

@@ -27,17 +27,6 @@
             <version>${karate.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>net.masterthought</groupId>
-            <artifactId>cucumber-reporting</artifactId>
-            <version>4.11.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
