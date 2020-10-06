@@ -2,9 +2,6 @@ Feature: Register a new user
 
   Background:
     * url someUrl
-    * def stream = read('classpath:karate.properties')
-    * def properties = new java.util.Properties()
-    * eval properties.load(stream)
     * def username = properties.username
     * def email = properties.email
     * def password = properties.password
