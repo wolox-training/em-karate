@@ -1,4 +1,4 @@
-Feature: You want to validate the Login functionality
+Feature: Login to Conduit
 
   Background:
     * url url
