@@ -9,11 +9,11 @@ Feature: Register a new user
     * def emailIncorrect = emailIncorrect
     * def passwordIncorrect = passwordIncorrect
 
-  @flowRegister
+  @flow
   Scenario: Register successfully
 
     * def register = { user: { username: '#(username)', email: '#(email)', password: '#(password)'} }
-    * def registerSuccessfully = read('training/sign_up/scheme/registrationresponse.json')
+    * def registerSuccessfully = read('training/sign_up/registrationresponse.json')
 
     Given path 'users'
     And request register
@@ -23,18 +23,20 @@ Feature: Register a new user
     And assert response.user.username == username
     And assert response.user.email == email
 
-   @unitTestRegister
+   @unitTest
   Scenario Outline: Register incorrect
 
     * def registerIncorrect = { user: { username: '#(<descriptionUsername>)', email: '#(<descriptionEmail>)', password: '#(<descriptionPassword>)'} }
-    * def incorrectRegister = {"errors": {"username": <descriptionMessageUsername>,"email": <descriptionMessageEmail>}}
+    * def incorrectRegister = {"errors": {"username": <descriptionMessageUsername>,"email": <descriptionMessageEmail>, "password": <descriptionMessagePassword> }}
+     * def registerIncorrect = read('training/sign_up/incorrectResponse.json')
 
     Given path 'users'
     And request registerIncorrect
     When method post
     Then status <statusCode>
-     And assert response.errors.username == descriptionMessageUsername
-     And assert response.errors.email == descriptionMessageEmail
+     And match  response == registerIncorrect
+     And assert response.errors.username == '<descriptionMessageUsername>'
+     And assert response.errors.email == '<descriptionMessageEmail>'
 
     Examples:
       | descriptionUsername     | descriptionEmail   |   descriptionPassword    |statusCode|descriptionMessageUsername  |descriptionMessageEmail     |descriptionMessagePassword      |
@@ -46,5 +48,3 @@ Feature: Register a new user
       |                         |                    |                          |422       |is invalid                  |is invalid                  | can't be blank                 |
       |                         |                    |                          |422       |is invalid                  |is invalid                  | can't be blank                 |
       |usernameIncorrect        |  emailIncorrect    |     passwordIncorrect    |422       |is invalid                  |is invalid                  | is invalid                     |
-
-
