@@ -8,7 +8,7 @@ Feature: Login to Conduit
     * def emailNotExist = emailNotExist
     * def passwordIncorrect = passwordIncorrect
 
-  @flow
+  @loginSuccessfully
   Scenario: Login successfully
 
     * def login = {"user": {"email": '#(email)',"password": '#(password)'}}
@@ -21,6 +21,7 @@ Feature: Login to Conduit
     And match  response == loginSuccessfully
     And assert response.user.username == username
     And assert response.user.email == email
+
 
   @unitTest
   Scenario Outline: login incorrect
