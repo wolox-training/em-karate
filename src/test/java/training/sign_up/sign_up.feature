@@ -20,7 +20,8 @@ Feature: Register a new user
     When method post
     Then status 200
     And match  response == registerSuccessfully
-
+    And assert response.user.username == username
+    And assert response.user.email == email
 
    @unitTestRegister
   Scenario Outline: Register incorrect
@@ -32,17 +33,18 @@ Feature: Register a new user
     And request registerIncorrect
     When method post
     Then status <statusCode>
-
+     And assert response.errors.username == descriptionMessageUsername
+     And assert response.errors.email == descriptionMessageEmail
 
     Examples:
       | descriptionUsername     | descriptionEmail   |   descriptionPassword    |statusCode|descriptionMessageUsername  |descriptionMessageEmail     |descriptionMessagePassword      |
-      |username                 |  email             |     password             |422       |is already taken.           |is already taken.           | minimum 8 characters           |
-      |                         |  email             |     password             |422       |can't be blank              |                            | minimum 8 characters           |
-      |username                 |                    |     password             |422       |                            |can't be blank              | minimum 8 characters           |
-      |                         |                    |     password             |422       |can't be blank              |can't be blank              | minimum 8 characters           |
-      |username                 |  email             |                          |422       |                            |                            | can't be blank                 |
-      |                         |                    |                          |422       |can't be blank              |can't be blank              | can't be blank                 |
-      |                         |                    |                          |422       |can't be blank              |can't be blank              | can't be blank                 |
+      |username                 |  email             |     passwordIncorrect    |422       |is already taken.           |is already taken.           | minimum 8 characters           |
+      |                         |  email             |     passwordIncorrect    |422       |is invalid                  |is already taken.           | minimum 8 characters           |
+      |username                 |                    |     passwordIncorrect    |422       |is already taken.           |is invalid                  | minimum 8 characters           |
+      |                         |                    |     passwordIncorrect    |422       |is invalid                  |is invalid                  | minimum 8 characters           |
+      |username                 |  email             |                          |422       |is already taken.           |is already taken.           | can't be blank                 |
+      |                         |                    |                          |422       |is invalid                  |is invalid                  | can't be blank                 |
+      |                         |                    |                          |422       |is invalid                  |is invalid                  | can't be blank                 |
       |usernameIncorrect        |  emailIncorrect    |     passwordIncorrect    |422       |is invalid                  |is invalid                  | is invalid                     |
 
 
