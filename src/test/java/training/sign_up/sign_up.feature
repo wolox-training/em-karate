@@ -9,8 +9,9 @@ Feature: Register a new user
     * def emailIncorrect = emailIncorrect
     * def passwordIncorrect = passwordIncorrect
 
+
   @flow
-  Scenario: Register successfully
+  Scenario: Register and login successfully
 
     * def register = { user: { username: '#(username)', email: '#(email)', password: '#(password)'} }
     * def registerSuccessfully = read('training/sign_up/registrationresponse.json')
@@ -22,8 +23,9 @@ Feature: Register a new user
     And match  response == registerSuccessfully
     And assert response.user.username == username
     And assert response.user.email == email
+    And call login = read('../sign_in/sign_in.feature@loginSuccessfully'){ email: '#(email)', password:'#(password)' }
 
-   @unitTest
+  @unitTest
   Scenario Outline: Register incorrect
 
     * def registerIncorrect = { user: { username: '#(<descriptionUsername>)', email: '#(<descriptionEmail>)', password: '#(<descriptionPassword>)'} }
