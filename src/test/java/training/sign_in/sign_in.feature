@@ -1,4 +1,4 @@
-Feature: Enter the API
+Feature: You want to validate the Login functionality
 
   Background:
     * url url
