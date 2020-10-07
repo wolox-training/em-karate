@@ -14,7 +14,7 @@ Feature: Enter the API
     * def login = {"user": {"email": '#(email)',"password": '#(password)'}}
     * def loginSuccessfully = read('training/sign_in/responsesuccessfully.json')
 
-    Given path 'users/login'
+    Given path 'users', 'login'
     And request login
     When method post
     Then status 200
