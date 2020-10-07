@@ -26,10 +26,9 @@ Feature: Enter the API
   Scenario Outline: login incorrect
 
     * def loginIncorrect = {"user": {"email": '#(<descriptionEmail>)',"password": '#(<descriptionPassword>)'}}
-    * def incorrectLogin = {"errors": {"email or password": <descriptionMessage>}}
     * def responseIncorrect = read('training/sign_in/responseincorrect.json')
 
-    Given path 'users/login'
+    Given path 'users', 'login'
     And request loginIncorrect
     When method post
     Then status <statusCode>

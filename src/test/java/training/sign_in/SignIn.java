@@ -2,9 +2,9 @@ package training.sign_in;
 
 import com.intuit.karate.junit5.Karate;
 
-public class SingIn {
+public class SignIn {
     @Karate.Test
     Karate testUsers() {
-        return Karate.run("sing_in").relativeTo(getClass());
+        return Karate.run("sign_in").relativeTo(getClass());
     }
 }
