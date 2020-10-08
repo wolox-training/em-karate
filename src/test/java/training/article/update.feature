@@ -6,20 +6,28 @@ Feature: update an article
     * def username = username
 
     * def token = "Bearer " + login.response.user.token
-    * def login = call read('create.feature@createSuccessfully')
+    * def create = call read('create.feature@flow')
+    * def slug = create.response.article.slug
 
+  @flow
   Scenario Outline: update an article
-
     * def updateArticle = {"article":{"title":'#(<updateTitle>)', "description":'#(<updateDescription>)', "body":'#(<updateDescriptionbody>)', "tagList":["dragons","training"]}}
     * def articleSuccessfully = read('training/article/responsesuccessfully.json')
 
-    Given path 'articles', 'training-de-dllo-36xhmh'
+    Given path 'articles', slug
     And header Authorization = token
     And request updateArticle
     When method put
     Then status <statusCode>
     And match  response == articleSuccessfully
-    * print response
+    And match response.article.title contains '<updateTitle>'
+    And match response.article.description contains '<updateDescription>'
+    And match response.article.body contains '<updateDescriptionbody>'
+    And match response.article.author.username contains username
+    Given path 'articles', 'training-de-dllo-36xhmh'
+    And header Authorization = token
+    When method get
+    Then status <statusCode>
     And match response.article.title contains '<updateTitle>'
     And match response.article.description contains '<updateDescription>'
     And match response.article.body contains '<updateDescriptionbody>'
@@ -29,4 +37,3 @@ Feature: update an article
        |statusCode|updateTitle          |updateDescription |updateDescriptionbody|
        |200       |Training  dllo       |NODE js           |With project         |
        |200       |Training  QA         |Performance Jmeter|With project         |
-    

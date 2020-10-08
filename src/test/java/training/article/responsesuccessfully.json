@@ -10,7 +10,7 @@
     "author": {
       "username": "#string",
       "bio": "##string",
-      "image": "https://static.productionready.io/images/smiley-cyrus.jpg",
+      "image": "#string",
       "following": "#boolean"
     },
     "favorited": "#boolean",

@@ -30,7 +30,7 @@ Feature: Register a new user
 
     * def registerIncorrect = { user: { username: '#(<descriptionUsername>)', email: '#(<descriptionEmail>)', password: '#(<descriptionPassword>)'} }
     * def incorrectRegister = {"errors": {"username": <descriptionMessageUsername>,"email": <descriptionMessageEmail>, "password": <descriptionMessagePassword> }}
-     * def registerIncorrect = read('training/sign_up/incorrectResponse.json')
+    * def registerIncorrect = read('training/sign_up/incorrectResponse.json')
 
     Given path 'users'
     And request registerIncorrect

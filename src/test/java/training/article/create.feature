@@ -4,10 +4,9 @@ Feature: Create an article
     * url url
     * def login = call read('../sign_in/sign_in.feature@loginSuccessfully')
     * def username = username
-
     * def token = "Bearer " + login.response.user.token
 
-  @createSuccessfully
+  @flow
   Scenario Outline: create an article
 
     * def createArticle = {"article": {"title": '#(<descriptionTitle>)',"description": '#(<description>)',"body": '#(<descriptionbody>)',"tagList": ["string"]}}
