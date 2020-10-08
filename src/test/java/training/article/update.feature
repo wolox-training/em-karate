@@ -24,7 +24,7 @@ Feature: update an article
     And match response.article.description contains '<updateDescription>'
     And match response.article.body contains '<updateDescriptionbody>'
     And match response.article.author.username contains username
-    Given path 'articles', 'training-de-dllo-36xhmh'
+    Given path 'articles', slug
     And header Authorization = token
     When method get
     Then status <statusCode>
