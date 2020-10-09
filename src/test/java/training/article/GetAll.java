@@ -2,9 +2,9 @@ package training.article;
 
 import com.intuit.karate.junit5.Karate;
 
-public class Article {
+public class GetAll {
     @Karate.Test
     Karate testUsers() {
-        return Karate.run("article").relativeTo(getClass());
+        return Karate.run("getAll").relativeTo(getClass());
     }
 }

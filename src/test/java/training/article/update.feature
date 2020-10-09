@@ -4,14 +4,14 @@ Feature: update an article
     * url url
     * def login = call read('../sign_in/sign_in.feature@loginSuccessfully')
     * def username = username
-
     * def token = "Bearer " + login.response.user.token
-    * def create = call read('create.feature@flow')
-    * def slug = create.response.article.slug
+    * def getArticles = call read('getAll.feature@getArticles')
+    * def randomArticle = function(articles) { return articles[Math.floor(Math.random() * articles.length)] }
+    * def slug = typeof passedSlug == 'undefined' ? randomArticle(getArticles.response.articles).slug : passedSlug
 
   @flow
   Scenario Outline: update an article
-    * def updateArticle = {"article":{"title":'#(<updateTitle>)', "description":'#(<updateDescription>)', "body":'#(<updateDescriptionbody>)', "tagList":["dragons","training"]}}
+    * def updateArticle = {"article":{"title":'<updateTitle>', "description":'<updateDescription>', "body":'<updateDescriptionbody>', "tagList":["dragons","training"]}}
     * def articleSuccessfully = read('training/article/responsesuccessfully.json')
 
     Given path 'articles', slug
@@ -20,18 +20,13 @@ Feature: update an article
     When method put
     Then status <statusCode>
     And match  response == articleSuccessfully
-    And match response.article.title contains '<updateTitle>'
-    And match response.article.description contains '<updateDescription>'
-    And match response.article.body contains '<updateDescriptionbody>'
-    And match response.article.author.username contains username
-    Given path 'articles', slug
-    And header Authorization = token
-    When method get
-    Then status <statusCode>
-    And match response.article.title contains '<updateTitle>'
-    And match response.article.description contains '<updateDescription>'
-    And match response.article.body contains '<updateDescriptionbody>'
-    And match response.article.author.username contains username
+    And assert response.article.title == '<updateTitle>'
+    And assert response.article.description == '<updateDescription>'
+    And assert response.article.body == '<updateDescriptionbody>'
+    And assert response.article.author.username == username
+    * def responseUpdate = response
+    * def getArticle = call read('getArticle.feature@getArticle'){ passedSlug: '#(slug)' }
+    And match getArticle.response == responseUpdate
 
     Examples:
        |statusCode|updateTitle          |updateDescription |updateDescriptionbody|

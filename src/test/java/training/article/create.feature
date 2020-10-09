@@ -9,7 +9,7 @@ Feature: Create an article
   @flow
   Scenario Outline: create an article
 
-    * def createArticle = {"article": {"title": '#(<descriptionTitle>)',"description": '#(<description>)',"body": '#(<descriptionbody>)',"tagList": ["string"]}}
+    * def createArticle = {"article": {"title": '<descriptionTitle>',"description": '<description>',"body": '<descriptionbody>',"tagList": ["string"]}}
     * def articleSuccessfully = read('training/article/responsesuccessfully.json')
 
     Given path 'articles'
@@ -18,17 +18,14 @@ Feature: Create an article
     When method post
     Then status <statusCode>
     And match  response == articleSuccessfully
-    And match response.article.title contains '<descriptionTitle>'
-    And match response.article.description contains '<description>'
-    And match response.article.body contains '<descriptionbody>'
-    And match response.article.author.username contains username
+    And assert response.article.title == '<descriptionTitle>'
+    And assert response.article.description == '<description>'
+    And assert response.article.body == '<descriptionbody>'
+    And assert response.article.author.username == username
     * def slug = response.article.slug
-
-    Given path 'articles',slug
-    When method get
-    Then status <statusCode>
-    And assert response.article.slug === slug
-    And assert response.article.author.username === username
+    * def getArticle = call read('getArticle.feature@getArticle'){ passedSlug: '#(slug)' }
+    And assert getArticle.response.article.slug === slug
+    And assert getArticle.response.article.author.username === username
 
     Examples:
 
