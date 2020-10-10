@@ -2,9 +2,7 @@ Feature: Create an article
 
   Background:
     * url url
-    * def login = call read('../sign_in/sign_in.feature@loginSuccessfully')
     * def username = username
-    * def token = "Bearer " + login.response.user.token
 
   @flow
   Scenario Outline: create an article
@@ -22,9 +20,8 @@ Feature: Create an article
     And assert response.article.description == '<description>'
     And assert response.article.body == '<descriptionbody>'
     And assert response.article.author.username == username
-    * def slug = response.article.slug
-    * def getArticle = call read('getArticle.feature@getArticle'){ passedSlug: '#(slug)' }
-    And assert getArticle.response.article.slug === slug
+    And def getArticle = call read('getArticle.feature@getArticle'){ passedSlug: '#(response.article.slug)' }
+    And assert getArticle.response.article.slug === response.article.slug
     And assert getArticle.response.article.author.username === username
 
     Examples:

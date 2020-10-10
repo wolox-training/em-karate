@@ -1,8 +1,5 @@
 Feature: E2E  article
 
-  Background:
-    * def login = call read('../sign_in/sign_in.feature@loginSuccessfully')
-
   @e2eArticle
   Scenario: E2E  article
 

@@ -2,11 +2,9 @@ Feature: update an article
 
   Background:
     * url url
-    * def login = call read('../sign_in/sign_in.feature@loginSuccessfully')
     * def username = username
-    * def token = "Bearer " + login.response.user.token
-    * def getArticles = call read('getAll.feature@getArticles')
-    * def randomArticle = function(articles) { return articles[Math.floor(Math.random() * articles.length)] }
+    * def getArticles = call read('getArticle.feature@getAllArticles')
+    * def randomArticle = read('../helpers/Random.js')
     * def slug = typeof passedSlug == 'undefined' ? randomArticle(getArticles.response.articles).slug : passedSlug
 
   @flow
