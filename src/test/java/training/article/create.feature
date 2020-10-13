@@ -8,7 +8,7 @@ Feature: Create an article
   Scenario Outline: create an article
 
     * def createArticle = {"article": {"title": '<descriptionTitle>',"description": '<description>',"body": '<descriptionbody>',"tagList": ["string"]}}
-    * def articleSuccessfully = read('training/article/responsesuccessfully.json')
+    * def articleSuccessfully = read('training/article/responsearticle.json.json')
 
     Given path 'articles'
     And header Authorization = token
