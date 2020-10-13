@@ -7,9 +7,8 @@ Feature:  get an article
   @getArticle
   Scenario:  get an article
 
-    * def getArticles = call read('getArticle.feature@getAllArticles')
-    * def randomArticle = read('../helpers/Random.js')
-    * def slug = typeof passedSlug == 'undefined' ? randomArticle(getArticles.response.articles).slug : passedSlug
+    * def slug = passedSlug
+
     Given path 'articles', slug
     And header Authorization = token
     When method get
@@ -20,7 +19,10 @@ Feature:  get an article
   @getAllArticles
   Scenario:  get all articles
 
+    * def responseGetArticles = read('training/article/responsearticles.json')
+
     Given path 'articles'
     And header Authorization = token
     When method get
     Then status 200
+    And match  response == responseGetArticles

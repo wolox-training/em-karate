@@ -1,6 +1,6 @@
-function getRandomInt(articles) {
+function getRandomInt(array) {
 
-  return articles[Math.floor(Math.random() * articles.length)];
+  return articles[Math.floor(Math.random() * array.length)];
 
 }
 
