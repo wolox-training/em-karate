@@ -4,5 +4,8 @@ function fn() {
   if (!env) {
     env = 'dev';
   }
-  return properties[env];
+  var login = karate.callSingle('classpath:training/sign_in/sign_in.feature@loginSuccessfully', properties[env]);
+  var config = properties[env];
+  config.token = "Bearer " + login.response.user.token;
+  return config;
 }
