@@ -3,7 +3,6 @@ Feature: Create an article
   Background:
     * url url
     * def username = username
-
   @flow
   Scenario Outline: create an article
 
