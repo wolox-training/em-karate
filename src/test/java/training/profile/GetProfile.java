@@ -8,4 +8,3 @@ public class GetProfile {
         return Karate.run("getprofile").relativeTo(getClass());
     }
 }
-
