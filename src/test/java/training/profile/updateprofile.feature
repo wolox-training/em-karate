@@ -6,7 +6,7 @@ Feature:  Update profile
   @flow
   Scenario Outline:  Update profile
     * def updateProfile = {"user":{"username":'<username>',"email":'<email>',"bio":'<bio>',"image":'<imagenUrl>'}}
-    * def profileSuccessfully = read('training/profile/userscheme.json')
+    * def profileSuccessfully = read('training/profile/userschema.json')
 
     Given path 'user'
     And header Authorization = token
@@ -22,9 +22,8 @@ Feature:  Update profile
     And assert getProfile.response.user.username === response.user.username
 
     Examples:
-    |username        |email                     |bio           |imagenUrl          |statusCode|
-    |migueyliuiyles  |migueeys@gmail.com        |soy estudiante|imagen.png         |200       |
-    |elvismg         |elvismg+7@gmail.com       |soy estudiante|imagen.png         |200       |
+    |username             |email                          |bio           |imagenUrl          |statusCode|
+    |migueyliuiylesytyts  |migueeyytytys@gmail.com        |soy estudiante|imagen.png         |200       |
 
   @unitTest
   Scenario Outline:  Update wrong profile
