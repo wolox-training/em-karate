@@ -6,7 +6,7 @@ Feature:  get profile
   @getprofile
   Scenario:  get profile
 
-    * def responseGet = read('training/profile/userschema.json')
+    * def responseGet = read('userschema.json')
 
     Given path 'user'
     And header Authorization = token
@@ -14,4 +14,3 @@ Feature:  get profile
     Then status 200
     And match  response == responseGet
     And assert response.user.username == username
-    And assert response.user.token == token

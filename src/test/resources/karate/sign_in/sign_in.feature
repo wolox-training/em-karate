@@ -12,7 +12,7 @@ Feature: Login to Conduit
   Scenario: Login successfully
 
     * def login = {"user": {"email": '#(email)',"password": '#(password)'}}
-    * def loginSuccessfully = read('training/sign_in/responsesuccessfully.json')
+    * def loginSuccessfully = read('classpath:karate/sign_in/responsesuccessfully.json')
 
     Given path 'users', 'login'
     And request login
@@ -27,7 +27,7 @@ Feature: Login to Conduit
   Scenario Outline: login incorrect
 
     * def loginIncorrect = {"user": {"email": '#(<descriptionEmail>)',"password": '#(<descriptionPassword>)'}}
-    * def responseIncorrect = read('training/sign_in/responseincorrect.json')
+    * def responseIncorrect = read('responseincorrect.json')
 
     Given path 'users', 'login'
     And request loginIncorrect

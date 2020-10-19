@@ -2,12 +2,12 @@ Feature: Create an article
 
   Background:
     * url url
-    * def username = username
+
   @flow
   Scenario Outline: create an article
 
     * def createArticle = {"article": {"title": '<descriptionTitle>',"description": '<description>',"body": '<descriptionbody>',"tagList": ["string"]}}
-    * def articleSuccessfully = read('training/article/responsearticle.json.json')
+    * def articleSuccessfully = read('responsearticle.json')
 
     Given path 'articles'
     And header Authorization = token
@@ -19,7 +19,7 @@ Feature: Create an article
     And assert response.article.description == '<description>'
     And assert response.article.body == '<descriptionbody>'
     And assert response.article.author.username == username
-    And def getArticle = call read('getArticle.feature@getArticle'){ passedSlug: '#(response.article.slug)' }
+    And def getArticle = call read('classpath:karate/article/getArticle.feature@getArticle'){ slug: '#(response.article.slug)' }
     And assert getArticle.response.article.slug === response.article.slug
     And assert getArticle.response.article.author.username === username
 

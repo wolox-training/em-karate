@@ -1,6 +1,4 @@
 target/
 .idea/
-*.iml
-src/test/java/examples/
-.DS_Store
-karate-properties.json
+src/test/resources/karate-properties.json
+
