@@ -2,19 +2,16 @@ Feature: Register a new user
 
   Background:
     * url url
-    * def username = username
-    * def email = email
-    * def password = password
-    * def usernameIncorrect = usernameIncorrect
-    * def emailIncorrect = emailIncorrect
-    * def passwordIncorrect = passwordIncorrect
-
 
   @flow
   Scenario: Register and login successfully
 
+    * def randomString = read('classpath:karate/helpers/RandomString.js')
+    * def username = randomString(8)
+    * def email = randomString(6) + '@gmail.com'
+    * def password = randomString(8)
     * def register = { user: { username: '#(username)', email: '#(email)', password: '#(password)'} }
-    * def registerSuccessfully = read('training/sign_up/registrationresponse.json')
+    * def registerSuccessfully = read('registrationresponse.json')
 
     Given path 'users'
     And request register
@@ -23,14 +20,14 @@ Feature: Register a new user
     And match  response == registerSuccessfully
     And assert response.user.username == username
     And assert response.user.email == email
-    And call login = read('../sign_in/sign_in.feature@loginSuccessfully'){ email: '#(email)', password:'#(password)' }
+    And call login = read('classpath:karate/sign_in/sign_in.feature@loginSuccessfully'){ email: '#(email)', password:'#(password)' }
 
   @unitTest
   Scenario Outline: Register incorrect
 
     * def registerIncorrect = { user: { username: '#(<descriptionUsername>)', email: '#(<descriptionEmail>)', password: '#(<descriptionPassword>)'} }
     * def incorrectRegister = {"errors": {"username": <descriptionMessageUsername>,"email": <descriptionMessageEmail>, "password": <descriptionMessagePassword> }}
-    * def registerIncorrect = read('training/sign_up/incorrectResponse.json')
+    * def registerIncorrect = read('incorrectResponse.json')
 
     Given path 'users'
     And request registerIncorrect
