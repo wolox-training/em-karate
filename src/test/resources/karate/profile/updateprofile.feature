@@ -3,7 +3,7 @@ Feature:  Update profile
   Background:
     * url url
 
-  @flow @only
+  @flow
   Scenario Outline:  Update profile
     * def updateProfile = {"user":{"bio":'<bio>',"image":'<imagenUrl>'}}
 
